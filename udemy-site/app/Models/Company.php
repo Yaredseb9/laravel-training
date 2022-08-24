@@ -9,7 +9,8 @@ class Company extends Model
 {
     use HasFactory;
 
-    public function contacts(){
-        return $this->hasMany(Contact::class);
+    public function contacts()
+    {
+        return $this->hasMany(Contact::class, 'company_id');
     }
 }
