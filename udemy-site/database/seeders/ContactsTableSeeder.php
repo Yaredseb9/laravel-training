@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Contact;
 use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -16,32 +17,34 @@ class ContactsTableSeeder extends Seeder
     public function run()
     {
 
-        DB::table('contacts')->truncate();
+        // DB::table('contacts')->delete();
 
-        $contacts = [];
+        // $contacts = [];
 
-        $faker = Faker::create();
+        // $faker = Faker::create();
 
-        foreach(range(1,10) as $index){
-            $contacts[] = [
-                'first_name' => $faker->firstName(),
-                'last_name' => $faker->lastName(),
-                'phone' => $faker->phoneNumber(),
-                'email' => $faker->email(),
-                'address' => $faker->address(),
-                'company_id' => $faker->company(),
-                'created_at' => now(),
-                'updated_at' => now(),
-                // 'name' => $name = "Company $index",
-                // 'address' => "Address $name",
-                // 'website' => "Website $name",
-                // 'email' => "Email $name",
-                // 'created_at' => now(),
-                // 'updated_at' => now(),
+        // foreach(range(1,10) as $index){
+        //     $contacts[] = [
+        //         'first_name' => $faker->firstName(),
+        //         'last_name' => $faker->lastName(),
+        //         'phone' => $faker->phoneNumber(),
+        //         'email' => $faker->email(),
+        //         'address' => $faker->address(),
+        //         'company_id' => $faker->company(),
+        //         'created_at' => now(),
+        //         'updated_at' => now(),
+        //         // 'name' => $name = "Company $index",
+        //         // 'address' => "Address $name",
+        //         // 'website' => "Website $name",
+        //         // 'email' => "Email $name",
+        //         // 'created_at' => now(),
+        //         // 'updated_at' => now(),
 
-            ];
-        }
+        //     ];
+        // }
         
-        DB::table('contacts')->insert($contacts);
+        // DB::table('contacts')->insert($contacts);
+        
+        Contact::factory()->count(50)->create();
     }
 }
