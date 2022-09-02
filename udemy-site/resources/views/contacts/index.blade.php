@@ -34,33 +34,46 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if($message = session('message'))
+                                    @if ($message = session('message'))
                                         {{ $message }}
                                     @endif
-                                  @if ($contacts->count())
-                                    @foreach ($contacts as $index=>$contact )
-                                      <tr>
-                                        <th scope="row">{{ $index+$contacts->firstItem() }}</th>
-                                        <td>{{ $contact->first_name }}</td>
-                                        <td>{{ $contact->last_name }}</td>
-                                        <td>{{ $contact->email }}</td>
-                                        <td>@if(isset($contact->company->name)){{ $contact->company->name }}@else @dd($contact) @endif</td>
-                                        <td width="150">
-                                            <a href="{{ route('contacts.show', $contact->id) }}" class="btn btn-sm btn-circle btn-outline-info"
-                                                title="Show"><i class="fa fa-eye"></i></a>
-                                            <a href="form.html" class="btn btn-sm btn-circle btn-outline-secondary"
-                                                title="Edit"><i class="fa fa-edit"></i></a>
-                                            <a href="#" class="btn btn-sm btn-circle btn-outline-danger"
-                                                title="Delete" onclick="confirm('Are you sure?')"><i
-                                                    class="fa fa-times"></i></a>
-                                        </td>
-                                      </tr>
-                                    @endforeach
-                                  @endif
+                                    @if ($contacts->count())
+                                        @foreach ($contacts as $index => $contact)
+                                            <tr>
+                                                <th scope="row">{{ $index + $contacts->firstItem() }}</th>
+                                                <td>{{ $contact->first_name }}</td>
+                                                <td>{{ $contact->last_name }}</td>
+                                                <td>{{ $contact->email }}</td>
+                                                <td>
+                                                    @if (isset($contact->company->name))
+                                                        {{ $contact->company->name }}
+                                                    @else
+                                                        @dd($contact)
+                                                    @endif
+                                                </td>
+                                                <td width="150">
+                                                    <a href="{{ route('contacts.show', $contact->id) }}"
+                                                        class="btn btn-sm btn-circle btn-outline-info" title="Show"><i
+                                                            class="fa fa-eye"></i></a>
+                                                    <a href="{{ route('contacts.edit', $contact->id) }}"
+                                                        class="btn btn-sm btn-circle btn-outline-secondary"
+                                                        title="Edit"><i class="fa fa-edit"></i></a>
+                                                    <a href="{{ route('contacts.destroy', $contact->id) }}"
+                                                        class="btn btn-sm btn-circle btn-outline-danger btn-delete" title="Delete"
+                                                        ><i class="fa fa-times"></i></a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        <form id="form-delete" action="" method="POST" style="display: none">
+                                            @csrf
+                                            @method('DELETE')
+
+                                        </form>
+                                    @endif
                                 </tbody>
                             </table>
                             <div class="pagination justify-content-center">
-                              {{ $contacts->appends(request()->only('company_id'))->links() }}
+                                {{ $contacts->appends(request()->only('company_id'))->links() }}
                             </div>
                             {{-- {!! $contacts->links() !!} --}}
                         </div>

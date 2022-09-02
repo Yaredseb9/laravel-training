@@ -3,7 +3,7 @@
         <div class="form-group row">
             <label for="first_name" class="col-md-3 col-form-label">First Name</label>
             <div class="col-md-9">
-                <input type="text" name="first_name" value="{{ old('first_name') }}" id="first_name" class="form-control @error('first_name') is-invalid @enderror">
+                <input type="text" name="first_name" value="{{ old('first_name', $contact->first_name) }}" id="first_name" class="form-control @error('first_name') is-invalid @enderror">
                 @error('first_name')
                     <div class="invalid-feedback">
                         {{ $message }}
@@ -15,7 +15,7 @@
         <div class="form-group row">
             <label for="last_name" class="col-md-3 col-form-label">Last Name</label>
             <div class="col-md-9">
-                <input type="text" name="last_name" value="{{ old('last_name') }}" id="last_name" class="form-control @error('last_name') is-invalid @enderror">
+                <input type="text" name="last_name" value="{{ old('last_name', $contact->last_name) }}" id="last_name" class="form-control @error('last_name') is-invalid @enderror">
                 @error('last_name')
                     <div class="invalid-feedback">
                         {{ $message }}
@@ -27,7 +27,7 @@
         <div class="form-group row">
             <label for="email" class="col-md-3 col-form-label">Email</label>
             <div class="col-md-9">
-                <input type="text" name="email" value="{{ old('email') }}" id="email" class="form-control @error('email') is-invalid @enderror">
+                <input type="text" name="email" value="{{ old('email', $contact->email) }}" id="email" class="form-control @error('email') is-invalid @enderror">
                 @error('email')
                     <div class="invalid-feedback">
                         {{ $message }}
@@ -39,7 +39,7 @@
         <div class="form-group row">
             <label for="phone" class="col-md-3 col-form-label">Phone</label>
             <div class="col-md-9">
-                <input type="text" name="phone" value="{{ old('phone') }}" id="phone" class="form-control @error('phone') is-invalid @enderror">
+                <input type="text" name="phone" value="{{ old('phone', $contact->phone) }}" id="phone" class="form-control @error('phone') is-invalid @enderror">
                 @error('phone')
                     <div class="invalid-feedback">
                         {{ $message }}
@@ -51,7 +51,7 @@
         <div class="form-group row">
             <label for="name" class="col-md-3 col-form-label">Address</label>
             <div class="col-md-9">
-                <textarea name="address" value="{{ old('address') }}" id="address" rows="3" class="form-control @error('address') is-invalid @enderror">{{ old('address') }}</textarea>
+                <textarea name="address" value="{{ old('address', $contact->address) }}" id="address" rows="3" class="form-control @error('address') is-invalid @enderror">{{ old('address', $contact->address) }}</textarea>
                 @error('address')
                     <div class="invalid-feedback">
                         {{ $message }}
@@ -64,7 +64,7 @@
             <div class="col-md-9">
                 <select name="company_id" id="company_id" class="form-control @error('company_id') is-invalid @enderror">
                     @foreach ($companies as $id => $name)
-                        <option value="{{ $id }}" @if (old('company_id') == $id) selected @endif>{{ $name }}</option>
+                        <option value="{{ $id }}" @if (old('company_id', $contact->company_id) == $id) selected @endif>{{ $name }}</option>
                     @endforeach
                 </select>
                 @error('company_id')
@@ -77,7 +77,7 @@
         <hr>
         <div class="form-group row mb-0">
             <div class="col-md-9 offset-md-3">
-                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="submit" class="btn btn-primary">{{ $contact->exists ? 'Update' : 'Save' }}</button>
                 <a href="{{ route('contacts.index') }}" class="btn btn-outline-secondary">Cancel</a>
             </div>
         </div>
