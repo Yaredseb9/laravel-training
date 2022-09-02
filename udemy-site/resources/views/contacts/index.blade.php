@@ -34,6 +34,9 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @if($message = session('message'))
+                                        {{ $message }}
+                                    @endif
                                   @if ($contacts->count())
                                     @foreach ($contacts as $index=>$contact )
                                       <tr>
@@ -41,7 +44,7 @@
                                         <td>{{ $contact->first_name }}</td>
                                         <td>{{ $contact->last_name }}</td>
                                         <td>{{ $contact->email }}</td>
-                                        <td>{{ $contact->company->name }}</td>
+                                        <td>@if(isset($contact->company->name)){{ $contact->company->name }}@else @dd($contact) @endif</td>
                                         <td width="150">
                                             <a href="{{ route('contacts.show', $contact->id) }}" class="btn btn-sm btn-circle btn-outline-info"
                                                 title="Show"><i class="fa fa-eye"></i></a>
