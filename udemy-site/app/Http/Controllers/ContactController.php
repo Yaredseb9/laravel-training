@@ -22,9 +22,13 @@ class ContactController extends Controller
 
     public function create()
     {
-        return view('contacts.create');
+        $companies = Company::orderBy('name')->pluck('name', 'id')->prepend('All Company', '');
+        return view('contacts.create', compact('companies'));
     }
-
+    public function store(Request $request)
+    {
+        dd($request);
+    }
     public function show($id)
     {
         $contact =  Contact::find($id);
