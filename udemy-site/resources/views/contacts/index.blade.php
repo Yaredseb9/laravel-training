@@ -35,7 +35,9 @@
                                 </thead>
                                 <tbody>
                                     @if ($message = session('message'))
-                                        {{ $message }}
+                                        <div class="alert alert-success" role="alert">
+                                            {{ $message }}
+                                        </div>
                                     @endif
                                     @if ($contacts->count())
                                         @foreach ($contacts as $index => $contact)
