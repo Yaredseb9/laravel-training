@@ -12,14 +12,7 @@ class ContactController extends Controller
     {
         // $companies = Company::select('id','name')->prepend('','All Company')->get();
         $companies = Company::orderBy('name')->pluck('name', 'id')->prepend('All Company', '');
-        $contacts = Contact::orderBy('id', 'desc')->where(function ($query) {
-            if ($compony_id = request('company_id')) {
-                $query->where('company_id', $compony_id);
-            }
-            if ($search = request('search')) {
-                $query->where('first_name', 'LIKE', "%{$search}%");
-            }
-        })->paginate(10);
+        $contacts = Contact::latestFirst()->paginate(10);
 
 
         // dd($contacts);

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Scopes\FilerScope;
 
 class Contact extends Model
 {
@@ -14,5 +15,31 @@ class Contact extends Model
     public function company()
     {
         return $this->belongsTo(Company::class);
+    }
+    public function scopeLatestFirst($query)
+    {
+        return $query->orderBy('id', 'desc');
+    }
+    // public function scopeFilter($query)
+    // {
+    //     if ($compony_id = request('company_id')) {
+    //         $query->where('company_id', $compony_id);
+    //     }
+    //     if ($search = request('search')) {
+    //         $query->where('first_name', 'LIKE', "%{$search}%");
+    //     }
+
+    //     return $query;
+    // }
+    // protected static function booted()
+    // {
+    //     // parent::booted();
+
+    //     static::addGlobalScope(new App\Scopes\FilterScope);
+    // }
+
+    protected static function booted()
+    {
+        static::addGlobalScope(new \App\Scopes\FilterScope);
     }
 }
