@@ -12,6 +12,8 @@ class Contact extends Model
 
     protected  $fillable = ['first_name', 'last_name','address','email','phone','company_id'];
 
+    public $filterColumns = ['company_id'];
+
     public function company()
     {
         return $this->belongsTo(Company::class);
@@ -20,6 +22,13 @@ class Contact extends Model
     {
         return $query->orderBy('id', 'desc');
     }
+
+    protected static function booted()
+    {
+        static::addGlobalScope(new \App\Scopes\FilterScope);
+        static::addGlobalScope(new \App\Scopes\ContactSearchScope);
+    }
+
     // public function scopeFilter($query)
     // {
     //     if ($compony_id = request('company_id')) {
@@ -38,8 +47,4 @@ class Contact extends Model
     //     static::addGlobalScope(new App\Scopes\FilterScope);
     // }
 
-    protected static function booted()
-    {
-        static::addGlobalScope(new \App\Scopes\FilterScope);
-    }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Company;
 use App\Models\Contact;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ContactController extends Controller
 {
@@ -12,8 +13,10 @@ class ContactController extends Controller
     {
         // $companies = Company::select('id','name')->prepend('','All Company')->get();
         $companies = Company::orderBy('name')->pluck('name', 'id')->prepend('All Company', '');
+        
+        DB::enableQueryLog();
         $contacts = Contact::latestFirst()->paginate(10);
-
+        dd(DB::getQueryLog());
 
         // dd($contacts);
         return view('contacts.index', compact('contacts', 'companies'));
@@ -23,6 +26,7 @@ class ContactController extends Controller
     {
         $contact = new Contact();
         $companies = Company::orderBy('name')->pluck('name', 'id')->prepend('All Company', '');
+
         return view('contacts.create', compact('companies', 'contact'));
     }
     public function store(Request $request)
