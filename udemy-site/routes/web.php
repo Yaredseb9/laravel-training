@@ -40,3 +40,7 @@ Route::delete('/contacts/{id}', [ContactController::class, 'destroy'])->name('co
 //     $contact =  Contact::find($id);
 //     return view('contacts.show', compact('contact'));
 // })->name('contacts.show');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
