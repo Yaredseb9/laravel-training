@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\DB;
 
 class ContactController extends Controller
 {
+    // public function __construct()
+    // {
+    //     $this->middleware('auth')->except('index');
+    // }
     public function index()
     {
         // $companies = Company::select('id','name')->prepend('','All Company')->get();
