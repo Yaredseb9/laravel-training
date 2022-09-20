@@ -10,7 +10,7 @@ class Contact extends Model
 {
     use HasFactory;
 
-    protected  $fillable = ['first_name', 'last_name','address','email','phone','company_id'];
+    protected  $fillable = ['first_name', 'last_name','address','email','phone','company_id', 'user_id'];
 
     public $filterColumns = ['company_id'];
 

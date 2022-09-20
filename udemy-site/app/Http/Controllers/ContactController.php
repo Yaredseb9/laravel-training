@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Company;
 use App\Models\Contact;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+
 
 class ContactController extends Controller
 {
@@ -16,10 +18,11 @@ class ContactController extends Controller
     public function index()
     {
         // $companies = Company::select('id','name')->prepend('','All Company')->get();
-        $companies = Company::orderBy('name')->pluck('name', 'id')->prepend('All Company', '');
+        $user = Auth::user();
+        $companies = $user->companies()->orderBy('name')->pluck('name', 'id')->prepend('All Company', '');
         
         // DB::enableQueryLog();
-        $contacts = Contact::latestFirst()->paginate(10);
+        $contacts = $user->contacts()->latestFirst()->paginate(10);
         // dd(DB::getQueryLog());
 
         // dd($contacts);
@@ -28,8 +31,9 @@ class ContactController extends Controller
 
     public function create()
     {
+        $user = Auth::user();
         $contact = new Contact();
-        $companies = Company::orderBy('name')->pluck('name', 'id')->prepend('All Company', '');
+        $companies = $user->companies()->orderBy('name')->pluck('name', 'id')->prepend('All Company', '');
 
         return view('contacts.create', compact('companies', 'contact'));
     }
@@ -43,8 +47,8 @@ class ContactController extends Controller
             'company_id' => 'required|exists:companies,id'
         ]);
 
-
-        Contact::create($request->except('_token', '_method'));
+        $request->user()->contacts()->create($request->except('_token', '_method') + ['user_id' => Auth::id()]);
+        // Contact::create($request->except('_token', '_method') + ['user_id' => Auth::id()]);
 
         // $contact = new Contact();
         // $contact->first_name = $request->first_name;
@@ -59,14 +63,16 @@ class ContactController extends Controller
     }
     public function show($id)
     {
-        $contact =  Contact::findOrFail($id);
+        $user = Auth::user();
+        $contact =  $user->contacts()->findOrFail($id);
         return view('contacts.show', compact('contact'));
     }
 
     public function edit($id)
     {
-        $contact =  Contact::findOrFail($id);
-        $companies = Company::orderBy('name')->pluck('name', 'id')->prepend('All Company', '');
+        $user = Auth::user();
+        $contact =  $user->contacts()->findOrFail($id);
+        $companies = $user->companies()->orderBy('name')->pluck('name', 'id')->prepend('All Company', '');
 
         return view('contacts.edit', compact('contact', 'companies'));
     }
@@ -83,7 +89,8 @@ class ContactController extends Controller
         ]);
 
         $contact = Contact::findOrFail($id);
-        $contact->update($request->except('_token', '_method'));
+
+        $contact->update($request->except('_token', '_method') + ['user_id' => Auth::id()]);
 
         return redirect()->route('contacts.index')->with('message', 'Contact has been updated successfully');
     }
