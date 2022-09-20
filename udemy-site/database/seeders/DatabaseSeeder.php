@@ -66,10 +66,10 @@ class DatabaseSeeder extends Seeder
         // });
 
 
-        $user = User::factory()
+        User::factory()
             ->count(5)
             ->has(Company::factory()->count(3))
-            ->has(Contact::factory()->count(3))
+            ->has(Contact::factory()->count(10))
             ->create();
     }
 }
