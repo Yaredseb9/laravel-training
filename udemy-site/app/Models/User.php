@@ -47,7 +47,7 @@ class User extends Authenticatable
         return $this->hasMany(Contact::class);
     }
 
-    public function compaies()
+    public function companies()
     {
         return $this->hasMany(Company::class);
     }

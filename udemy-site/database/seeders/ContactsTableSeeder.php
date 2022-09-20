@@ -45,6 +45,6 @@ class ContactsTableSeeder extends Seeder
         
         // DB::table('contacts')->insert($contacts);
         
-        Contact::factory()->count(50)->create();
+        // Contact::factory()->count(50)->create();
     }
 }

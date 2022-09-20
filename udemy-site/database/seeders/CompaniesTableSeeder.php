@@ -17,7 +17,7 @@ class CompaniesTableSeeder extends Seeder
     public function run()
     {
 
-        Company::factory()->count(50)->create();
+        // Company::factory()->count(50)->create();
 
         // DB::table('companies')->detete();
 
