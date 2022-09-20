@@ -2,8 +2,9 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\User;
 use Faker\Factory as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CompanyFactory extends Factory
 {
@@ -21,6 +22,8 @@ class CompanyFactory extends Factory
             'address' => $faker->address(),
             'website' => $faker->domainName(),
             'email' => $faker->email(),
+            'user_id' => User::factory(),
+            
             'created_at' => now(),
             'updated_at' => now(),
         ];

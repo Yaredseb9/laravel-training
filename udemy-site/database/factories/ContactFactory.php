@@ -2,9 +2,10 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use App\Models\Company;
-use Illuminate\Database\Eloquent\Factories\Factory;
 use Faker\Factory as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ContactFactory extends Factory
 {
@@ -23,7 +24,8 @@ class ContactFactory extends Factory
             'phone' => $faker->phoneNumber(),
             'email' => $faker->email(),
             'address' => $faker->address(),
-            'company_id' => Company::pluck('id')->random()
+            'company_id' => Company::pluck('id')->random(),
+            'user_id' => User::factory(),
 
         ];
     }

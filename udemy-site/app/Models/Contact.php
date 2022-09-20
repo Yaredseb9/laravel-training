@@ -47,4 +47,9 @@ class Contact extends Model
     //     static::addGlobalScope(new App\Scopes\FilterScope);
     // }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
 }
