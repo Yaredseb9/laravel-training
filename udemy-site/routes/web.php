@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\CompanyController;
 use App\Models\Contact;
 use Illuminate\Support\Facades\Route;
 
