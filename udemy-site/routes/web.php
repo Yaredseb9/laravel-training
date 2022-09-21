@@ -39,6 +39,7 @@ Route::middleware('auth')->group(function(){
         '/contacts' => ContactController::class,
         '/companies' => CompanyController::class
     ]);
+    // Route::resource('/contacts',ContactController::class)->except(['delete','show']);
 });
 // Route::get('/contacts/create',function(){
 //     return view('contacts.create');
