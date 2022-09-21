@@ -18,4 +18,11 @@ class Company extends Model
     {
         return $this->belongsTo(User::class);
     }
+        
+    public static function userCompanies()
+    {
+        // $user = Auth::user();
+        return self::wehere('user_id', auth()->id)->orderBy('name')->pluck('name', 'id')->prepend('All Company', '');
+
+    }
 }

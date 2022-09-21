@@ -35,17 +35,17 @@ Route::middleware('auth')->group(function(){
     // Route::delete('/contacts/{contact}', [ContactController::class, 'destroy'])->name('contacts.destroy');
     // Route::resource('/contacts', ContactController::class);
 
-    Route::resource('/contacts', ContactController::class)->names([
-        'index'=>'contacts.all',
-        'show'=>'contacts.view'
-    ])->parameters([
-        'contacts'=>'kontak'
-    ]);
-    // Route::resource('/contacts', ContactController::class);
-    // Route::resources([
-    //     '/contacts' => ContactController::class,
-    //     '/companies' => CompanyController::class
+    // Route::resource('/contacts', ContactController::class)->names([
+    //     'index'=>'contacts.all',
+    //     'show'=>'contacts.view'
+    // ])->parameters([
+    //     'contacts'=>'kontak'
     // ]);
+    // Route::resource('/contacts', ContactController::class);
+    Route::resources([
+        '/contacts' => ContactController::class,
+        '/companies' => CompanyController::class
+    ]);
     // Route::resource('/companies.contacts', ContactController::class);
     // Route::resource('/contacts',ContactController::class)->except(['delete','show']);
 });

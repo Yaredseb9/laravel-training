@@ -19,7 +19,8 @@ class ContactController extends Controller
     {
         // $companies = Company::select('id','name')->prepend('','All Company')->get();
         $user = Auth::user();
-        $companies = $user->companies()->orderBy('name')->pluck('name', 'id')->prepend('All Company', '');
+        $companies = $this->userCompanies();
+        // Company::userCompanies();
 
         // DB::enableQueryLog();
         $contacts = $user->contacts()->latestFirst()->paginate(10);
@@ -31,9 +32,9 @@ class ContactController extends Controller
 
     public function create()
     {
-        $user = Auth::user();
+        // $user = Auth::user();
         $contact = new Contact();
-        $companies = $user->companies()->orderBy('name')->pluck('name', 'id')->prepend('All Company', '');
+        $companies = $this->userCompanies();
 
         return view('contacts.create', compact('companies', 'contact'));
     }
@@ -63,16 +64,16 @@ class ContactController extends Controller
     }
     public function show(Contact $contact)
     {
-        $user = Auth::user();
+        // $user = Auth::user();
         // $contact =  $user->contacts()->findOrFail($id);
         return view('contacts.show', compact('contact'));
     }
 
     public function edit(Contact $contact)
     {
-        $user = Auth::user();
+        
         // $contact =  $user->contacts()->findOrFail($id);
-        $companies = $user->companies()->orderBy('name')->pluck('name', 'id')->prepend('All Company', '');
+        $companies = $this->userCompanies();
 
         return view('contacts.edit', compact('contact', 'companies'));
     }
@@ -101,5 +102,12 @@ class ContactController extends Controller
         $contact->delete();
 
         return redirect()->route('contacts.index')->with('message', 'Contact has been deleted successfully');
+    }
+
+    protected function userCompanies()
+    {
+        $user = Auth::user();
+        return $user->companies()->orderBy('name')->pluck('name', 'id')->prepend('All Company', '');
+
     }
 }
