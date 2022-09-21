@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Company;
 use App\Models\Contact;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\ContactRequest;
 
 
 class ContactController extends Controller
@@ -38,17 +39,12 @@ class ContactController extends Controller
 
         return view('contacts.create', compact('companies', 'contact'));
     }
-    public function store(Request $request)
+    public function store(ContactRequest $request)
     {
-        $request->validate([
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'email' => 'required|email',
-            'address' => 'required',
-            'company_id' => 'required|exists:companies,id'
-        ]);
+        
 
         $request->user()->contacts()->create($request->except('_token', '_method') + ['user_id' => Auth::id()]);
+        
         // Contact::create($request->except('_token', '_method') + ['user_id' => Auth::id()]);
 
         // $contact = new Contact();
@@ -78,17 +74,8 @@ class ContactController extends Controller
         return view('contacts.edit', compact('contact', 'companies'));
     }
 
-    public function update(Contact $contact, Request $request)
+    public function update(Contact $contact, ContactRequest $request)
     {
-
-        $request->validate([
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'email' => 'required|email',
-            'address' => 'required',
-            'company_id' => 'required|exists:companies,id'
-        ]);
-
         // $contact = Contact::findOrFail($id);
 
         $contact->update($request->except('_token', '_method') + ['user_id' => Auth::id()]);
@@ -109,5 +96,15 @@ class ContactController extends Controller
         $user = Auth::user();
         return $user->companies()->orderBy('name')->pluck('name', 'id')->prepend('All Company', '');
 
+    }
+    protected function validationRules()
+    {
+        return [
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'required|email',
+            'address' => 'required',
+            'company_id' => 'required|exists:companies,id'
+        ];
     }
 }
