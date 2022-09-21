@@ -24,14 +24,21 @@ Route::get('/', function () {
 //     return view('contacts.index');
 // })->name('contacts.index');
 Route::middleware('auth')->group(function(){
-    Route::get('/contacts', [ContactController::class, 'index'])->name('contacts.index');
-    Route::post('/contacts', [ContactController::class, 'store'])->name('contacts.store');
-    Route::get('/contacts/create', [ContactController::class, 'create'])->name('contacts.create');
-    // Route::get('/contacts/{contact:first_name}', [ContactController::class, 'show'])->name('contacts.show');
-    Route::get('/contacts/{contact}', [ContactController::class, 'show'])->name('contacts.show');
-    Route::get('/contacts/{contact}/edit', [ContactController::class, 'edit'])->name('contacts.edit');
-    Route::put('/contacts/{contact}', [ContactController::class, 'update'])->name('contacts.update');
-    Route::delete('/contacts/{contact}', [ContactController::class, 'destroy'])->name('contacts.destroy');
+    // Route::get('/contacts', [ContactController::class, 'index'])->name('contacts.index');
+    // Route::post('/contacts', [ContactController::class, 'store'])->name('contacts.store');
+    // Route::get('/contacts/create', [ContactController::class, 'create'])->name('contacts.create');
+    // // Route::get('/contacts/{contact:first_name}', [ContactController::class, 'show'])->name('contacts.show');
+    // Route::get('/contacts/{contact}', [ContactController::class, 'show'])->name('contacts.show');
+    // Route::get('/contacts/{contact}/edit', [ContactController::class, 'edit'])->name('contacts.edit');
+    // Route::put('/contacts/{contact}', [ContactController::class, 'update'])->name('contacts.update');
+    // Route::delete('/contacts/{contact}', [ContactController::class, 'destroy'])->name('contacts.destroy');
+    // Route::resource('/contacts', ContactController::class);
+
+    // Route::resource('/contacts', ContactController::class);
+    Route::resources([
+        '/contacts' => ContactController::class,
+        '/companies' => CompanyController::class
+    ]);
 });
 // Route::get('/contacts/create',function(){
 //     return view('contacts.create');
