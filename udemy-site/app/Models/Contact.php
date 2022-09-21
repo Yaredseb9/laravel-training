@@ -52,4 +52,9 @@ class Contact extends Model
         return $this->belongsTo(User::class);
     }
 
+    // public function getRouteKeyName()
+    // {
+    //     return 'first_name';
+    // }
+
 }
