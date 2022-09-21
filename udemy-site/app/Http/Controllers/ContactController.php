@@ -20,7 +20,7 @@ class ContactController extends Controller
         // $companies = Company::select('id','name')->prepend('','All Company')->get();
         $user = Auth::user();
         $companies = $user->companies()->orderBy('name')->pluck('name', 'id')->prepend('All Company', '');
-        
+
         // DB::enableQueryLog();
         $contacts = $user->contacts()->latestFirst()->paginate(10);
         // dd(DB::getQueryLog());
@@ -61,23 +61,23 @@ class ContactController extends Controller
 
         return redirect()->route('contacts.index')->with('message', 'Contact has been added successfully.');
     }
-    public function show($id)
+    public function show(Contact $contact)
     {
         $user = Auth::user();
-        $contact =  $user->contacts()->findOrFail($id);
+        // $contact =  $user->contacts()->findOrFail($id);
         return view('contacts.show', compact('contact'));
     }
 
-    public function edit($id)
+    public function edit(Contact $contact)
     {
         $user = Auth::user();
-        $contact =  $user->contacts()->findOrFail($id);
+        // $contact =  $user->contacts()->findOrFail($id);
         $companies = $user->companies()->orderBy('name')->pluck('name', 'id')->prepend('All Company', '');
 
         return view('contacts.edit', compact('contact', 'companies'));
     }
 
-    public function update($id, Request $request)
+    public function update(Contact $contact, Request $request)
     {
 
         $request->validate([
@@ -88,16 +88,17 @@ class ContactController extends Controller
             'company_id' => 'required|exists:companies,id'
         ]);
 
-        $contact = Contact::findOrFail($id);
+        // $contact = Contact::findOrFail($id);
 
         $contact->update($request->except('_token', '_method') + ['user_id' => Auth::id()]);
 
         return redirect()->route('contacts.index')->with('message', 'Contact has been updated successfully');
     }
 
-    public function destroy($id)
+    public function destroy(Contact $contact)
     {
-        Contact::destroy($id);
+        // Contact::destroy($id);
+        $contact->delete();
 
         return redirect()->route('contacts.index')->with('message', 'Contact has been deleted successfully');
     }
