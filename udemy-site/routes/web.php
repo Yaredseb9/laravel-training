@@ -42,10 +42,12 @@ Route::middleware('auth')->group(function(){
     //     'contacts'=>'kontak'
     // ]);
     // Route::resource('/contacts', ContactController::class);
+    
     Route::resources([
         '/contacts' => ContactController::class,
         '/companies' => CompanyController::class
     ]);
+
     // Route::resource('/companies.contacts', ContactController::class);
     // Route::resource('/contacts',ContactController::class)->except(['delete','show']);
 });

@@ -16,6 +16,7 @@ class ContactController extends Controller
     // {
     //     $this->middleware('auth')->except('index');
     // }
+
     public function index()
     {
         // $companies = Company::select('id','name')->prepend('','All Company')->get();
@@ -41,8 +42,6 @@ class ContactController extends Controller
     }
     public function store(ContactRequest $request)
     {
-        
-
         $request->user()->contacts()->create($request->except('_token', '_method') + ['user_id' => Auth::id()]);
         
         // Contact::create($request->except('_token', '_method') + ['user_id' => Auth::id()]);
@@ -67,10 +66,8 @@ class ContactController extends Controller
 
     public function edit(Contact $contact)
     {
-        
         // $contact =  $user->contacts()->findOrFail($id);
         $companies = $this->userCompanies();
-
         return view('contacts.edit', compact('contact', 'companies'));
     }
 
@@ -95,7 +92,6 @@ class ContactController extends Controller
     {
         $user = Auth::user();
         return $user->companies()->orderBy('name')->pluck('name', 'id')->prepend('All Company', '');
-
     }
     protected function validationRules()
     {
