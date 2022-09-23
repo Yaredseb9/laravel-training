@@ -21,7 +21,7 @@
                         </div>
                         <div class="card-body">
                             {{-- filter --}}
-                            {{-- @include('companies._filter') --}}
+                            @include('companies._filter')
                             <table class="table table-striped table-hover">
                                 <thead>
                                     <tr>
@@ -30,6 +30,7 @@
                                         <th scope="col">Address</th>
                                         <th scope="col">Website</th>
                                         <th scope="col">Email</th>
+                                        <th scope="col">Contacts</th>
                                         <th scope="col">Actions</th>
                                     </tr>
                                 </thead>
@@ -47,6 +48,7 @@
                                                 <td>{{ $company->address }}</td>
                                                 <td>{{ $company->website }}</td>
                                                 <td>{{ $company->email }}</td>
+                                                <td>{{ $company->contacts->count() }}</td>
                                                 {{-- <td>
                                                     @if (isset($company->company->name))
                                                         {{ $company->company->name }}

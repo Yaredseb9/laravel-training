@@ -11,6 +11,8 @@ class Company extends Model
 
     protected $fillable = ['name','address','website','email'];
 
+    public $seartchColumns = ['name', 'email', 'address', 'website'];
+
     public function contacts()
     {
         return $this->hasMany(Contact::class);
@@ -27,4 +29,10 @@ class Company extends Model
         return self::wehere('user_id', auth()->id)->orderBy('name')->pluck('name', 'id')->prepend('All Company', '');
 
     }
+    
+    public static function booted()
+    {
+        static::addGlobalScope(new \App\Scopes\SearchScope);
+    }
+
 }

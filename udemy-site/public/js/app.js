@@ -11,25 +11,34 @@ document.querySelectorAll('.btn-delete').forEach((button) => {
     })
 })
 
-document.getElementById('filter_company_id').addEventListener('change', function () {
-    // alert(this.value);
-    let companyId = this.value || this.options[this.selectedIndex].value
-    window.location.href = window.location.href.split('?')[0] + '?company_id=' + companyId
-})
+let filter_company = document.getElementById('filter_company_id')
+if(filter_company){
+    filter_company.addEventListener('change', function () {
+        // alert(this.value);
+        let companyId = this.value || this.options[this.selectedIndex].value
+        window.location.href = window.location.href.split('?')[0] + '?company_id=' + companyId
+    })
+}
 
-document.getElementById('btn-clear').addEventListener('click', ()=>{
-    let input = document.getElementById('search'),
-        select = document.getElementById('filter_company_id')
 
-        input.value = ""
-        select.selectedIndex = 0
-        window.location.href = window.location.href.split('?')[0]
-})
+let btn_clear = document.getElementById('btn-clear')
+if(btn_clear){
+    btn_clear.addEventListener('click', ()=>{
+        let input = document.getElementById('search'),
+            select = document.getElementById('filter_company_id')
+    
+            input.value = ""
+            if(select) select.selectedIndex = 0;
+            window.location.href = window.location.href.split('?')[0]
+    })
+}
 
 const toggleClearButton = ()=>{
     let query = location.search,
         pattern = /[?&]search=/,
         button = document.getElementById('btn-clear')
+
+    if(button == null) return;
 
     if(pattern.test(query)){
         button.style.display = 'block'

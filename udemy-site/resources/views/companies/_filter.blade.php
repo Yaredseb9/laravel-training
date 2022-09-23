@@ -4,15 +4,7 @@
       <form action="">
         <div class="row">
             <div class="col">
-                <select id="filter_company_id" name="company_id" class="custom-select">
-                    {{-- <option value="" selected>All Companies</option> --}}
-                    @if ($companies->count())
-                        @foreach ($companies as $id => $name)
-                            <option {{ $id == request('company_id') ? 'selected' : '' }} value="{{ $id }}">
-                                {{ $name }}</option>
-                        @endforeach
-                    @endif
-                </select>
+                
             </div>
             <div class="col">
                 <div class="input-group mb-3">
