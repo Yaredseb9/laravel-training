@@ -19,7 +19,7 @@ class CompanyController extends Controller
     {
         
         $user = Auth::user();
-        $companies =Company::where('user_id',$user->id)->paginate(10);
+        $companies =Company::where('user_id',$user->id)->with('contacts')->paginate(10);
 
         // dd($companies);
         return view('companies.index', compact('companies'));
