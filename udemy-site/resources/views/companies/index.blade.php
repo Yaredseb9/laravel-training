@@ -48,7 +48,7 @@
                                                 <td>{{ $company->address }}</td>
                                                 <td>{{ $company->website }}</td>
                                                 <td>{{ $company->email }}</td>
-                                                <td>{{ $company->contacts->count() }}</td>
+                                                <td>{{ $company->contacts_count }}</td>
                                                 {{-- <td>
                                                     @if (isset($company->company->name))
                                                         {{ $company->company->name }}
