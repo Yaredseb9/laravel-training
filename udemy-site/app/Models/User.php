@@ -33,6 +33,8 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    // protected $whith = ['contacts','companies'];
+
     /**
      * The attributes that should be cast.
      *
