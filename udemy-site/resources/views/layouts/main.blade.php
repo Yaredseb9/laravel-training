@@ -47,7 +47,7 @@
                                 {{ auth()->user()->name }}
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" href="profile.html">Settings</a>
+                                <a class="dropdown-item" href="{{ route('setting.profile.edit') }}">Settings</a>
                                 {{-- <a class="dropdown-item" href="{{ route('logout') }}">Logout</a> --}}
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                     onclick="event.preventDefault();

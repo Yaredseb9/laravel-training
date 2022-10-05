@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\ContactController;
-use App\Http\Controllers\CompanyController;
 use App\Models\Contact;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\Settings\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,6 +51,9 @@ Route::middleware('auth')->group(function(){
 
     // Route::resource('/companies.contacts', ContactController::class);
     // Route::resource('/contacts',ContactController::class)->except(['delete','show']);
+
+    Route::get('/setting/profile', [ProfileController::class, 'edit'])->name('setting.profile.edit');
+    Route::put('/setting/profile', [ProfileController::class, 'update'])->name('setting.profile.update');
 });
 // Route::get('/contacts/create',function(){
 //     return view('contacts.create');
